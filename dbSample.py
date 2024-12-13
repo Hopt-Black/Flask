@@ -19,7 +19,7 @@ try:
     cursor = conn.cursor()  #カーソルを取得
     cursor.execute(sql)
     rows = cursor.fetchall()    #selectの結果を全件タプルに格納
-except(mysql.connector.errors.ProgrammingError) as e:
+except mysql.connector.errors.ProgrammingError as e:
     print('エラー')
     print(e)
 
