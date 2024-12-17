@@ -3,74 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タロットカードの選択</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+    <title>タロットカードのシャッフル</title>
+    <script>
+        // タロット乱数を生成するボタン
+        function generateTarots() {
+            fetch('/generateTarots', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message); // 成功したらメッセージを表示
+                });
         }
-        .card-result {
-            margin-top: 20px;
+
+        // 生成されたタロット乱数を表示するボタン
+        function getTarots() {
+            fetch('/getTarots', { method: 'GET' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.cards !== undefined) {
+                    let cardDetails = data.cards.map(card => {
+                        return `${card.card} (${card.position})`;
+                    }).join("\n");
+
+                    alert("選ばれたタロットカード:\n" + cardDetails);
+                } else {
+                    alert(data.message);
+                }
+            });
         }
-        .card {
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-    </style>
+    </script>
 </head>
 <body>
     <h1>タロットカード占い</h1>
     <p>以下のボタンをクリックして、ランダムにタロットカードを3枚選んでみましょう！</p>
-    <button onclick="drawTarotCards()">タロットカードを選ぶ</button>
+    <button onclick="generateTarots()">山札をシャッフル</button>
+    <button onclick="getTarots()">３枚のカードを表示</button>
 
-    <div class="card-result" id="card-result"></div>
-
-    <script>
-        // 大アルカナのリスト（正位置 + 逆位置）
-        const majorArcana = [
-            "愚者（正位置）", "愚者（逆位置）",
-            "魔術師（正位置）", "魔術師（逆位置）",
-            "女教皇（正位置）", "女教皇（逆位置）",
-            "女帝（正位置）", "女帝（逆位置）",
-            "皇帝（正位置）", "皇帝（逆位置）",
-            "法王（正位置）", "法王（逆位置）",
-            "恋人（正位置）", "恋人（逆位置）",
-            "戦車（正位置）", "戦車（逆位置）",
-            "力（正位置）", "力（逆位置）",
-            "隠者（正位置）", "隠者（逆位置）",
-            "運命の輪（正位置）", "運命の輪（逆位置）",
-            "正義（正位置）", "正義（逆位置）",
-            "吊るされた男（正位置）", "吊るされた男（逆位置）",
-            "死神（正位置）", "死神（逆位置）",
-            "節制（正位置）", "節制（逆位置）",
-            "悪魔（正位置）", "悪魔（逆位置）",
-            "塔（正位置）", "塔（逆位置）",
-            "星（正位置）", "星（逆位置）",
-            "月（正位置）", "月（逆位置）",
-            "太陽（正位置）", "太陽（逆位置）",
-            "審判（正位置）", "審判（逆位置）",
-            "世界（正位置）", "世界（逆位置）"
-        ];
-
-        // ランダムに3枚のタロットカードを選択
-        function drawTarotCards() {
-            const selectedCards = [];
-            while (selectedCards.length < 3) {
-                const randomIndex = Math.floor(Math.random() * majorArcana.length);
-                const card = majorArcana[randomIndex];
-                if (!selectedCards.includes(card)) {
-                    selectedCards.push(card);
-                }
-            }
-
-            // 結果を表示
-            const resultDiv = document.getElementById("card-result");
-            resultDiv.innerHTML = `
-                <h2>選ばれたカード</h2>
-                ${selectedCards.map(card => `<div class="card">${card}</div>`).join('')}
-            `;
-        }
-    </script>
 </body>
 </html>

@@ -1,6 +1,10 @@
-from flask import Flask, render_template, request, session, jsonify
-import google.generativeai as genai
 import random
+import google.generativeai as genai
+
+#google generative AI (gemini API)のAPIキー設定
+genai.configure(api_key='YOUR_API_KEY')
+#geminiモデルの設定
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 # タロットカード一覧とその意味
 tarot_cards = [
@@ -54,67 +58,42 @@ tarot_cards_reversed = [
     "世界: 不完全な達成、進展の停止、結びつきの欠如"
 ]
 
-app = Flask(__name__)
+#正位置、逆位置をランダムに選ぶ
+def draw_tarot_cards():
+    selected_cards = []
+    #３枚のカードを引く
+    for _ in range(3):
+        #１枚目
+        position = random.choice(['正位置', '逆位置'])
 
-#セッション用のシークレットキーを設定
-app.secret_key = 'xxxxxxxxxxxxxxxx'
+        #正位置か逆位置を選び、そのカードの意味を選択
+        if position == '正位置':
+            card_index = random.choice(range(22))
+            selected_cards.append((tarot_cards[card_index], '正位置'))
+        else:
+            card_index = random.choice(range(22))
+            selected_cards.append((tarot_cards_reversed[card_index], '逆位置'))
+    return selected_cards
 
-#google generative AI (gemini API)のAPIキー設定
-genai.configure(api_key='YOUR_API_KEY')
-#geminiモデルの設定
-model = genai.GenerativeModel("gemini-1.5-flash")
+# 3枚のカードを引く
+selected_cards = draw_tarot_cards()
 
-#乱数を保存する変数
-generated_numbers = None
+# 選ばれたカードを表示
+print("タロットカード選択の結果:")
+for i, (card, position) in enumerate(selected_cards):
+    print(f"カード{i+1}: {card} ({position})")
 
-# ルーティング
-@app.route('/')
-def index():
-    return render_template('index.html')
+# 現状、アドバイス、最終結果の解釈
+current_card = selected_cards[0][0]  # 現状
+advice_card = selected_cards[1][0]   # アドバイス
+future_card = selected_cards[2][0]   # 最終結果
 
-@app.route('/result', methods = ['POST'])
-def return_result():
-    #フォームからPOSTデータを受け取る
-    user_str = request.form.get('question')
-    response = model.generate_content(user_str)
-    return render_template('result.html', result = response.text)
+# プロンプトを作成
+prompt = f"転職をすべきかどうかを、現状：'{current_card}'、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答してください。"
 
-@app.route('/tarot', methods = ['POST'])
-def tarot_select():
-    #フォームから相談内容を受け取る
-    user_consultation = request.form.get('consultation')
+# AIによる占い結果の生成
+response = model.generate_content(prompt)
 
-    #セッションスコープに保存
-    session['user_consultation'] = user_consultation
-
-    return render_template('tarotSelect.html')
-
-@app.route('/generateTarots', methods=['POST'])
-def generate_tarots():
-    global generated_numbers
-    # 0～21の中から重複しない3つの数字をランダムに選ぶ
-    generated_numbers = random.sample(range(22), 3)
-    return jsonify({"message": "乱数を生成しました！"})
-
-
-@app.route('/getTarots', methods=['GET'])
-def get_tarots():
-    global generated_numbers
-    if generated_numbers is not None:
-        selected_cards = []
-        # 生成された乱数を使ってカードとその意味を取得
-        for num in generated_numbers:
-            position = random.choice(['正位置', '逆位置'])  # 正位置 or 逆位置をランダムに選択
-            if position == '正位置':
-                selected_cards.append({"card": tarot_cards[num], "position": "正位置"})
-            else:
-                selected_cards.append({"card": tarot_cards_reversed[num], "position": "逆位置"})
-
-        # カードの情報をJSON形式で返却
-        return jsonify({"cards": selected_cards})
-    else:
-        return jsonify({"message": "まだ乱数が生成されていません！"})
-
-
-if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+# 結果を表示
+print("占い結果:")
+print(response.text)
