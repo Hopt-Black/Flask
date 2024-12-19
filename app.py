@@ -110,8 +110,23 @@ def get_tarots():
             else:
                 selected_cards.append({"card": tarot_cards_reversed[num], "position": "逆位置"})
 
+        # 現状、アドバイス、最終結果の解釈
+        current_card = selected_cards[0]["card"]  # 現状
+        advice_card = selected_cards[1]["card"]  # アドバイス
+        future_card = selected_cards[2]["card"]  # 最終結果
+
+        # プロンプトを作成
+        prompt = f"転職をすべきかどうかを、現状：'{current_card}'、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答してください。"
+
+        # AIによる占い結果の生成
+        response = model.generate_content(prompt)
+
+        print(response.text)
+
+        return render_template('stream.html', text=response.text)
+
         # カードの情報をJSON形式で返却
-        return jsonify({"cards": selected_cards})
+        #return jsonify({"cards": selected_cards})
     else:
         return jsonify({"message": "まだ乱数が生成されていません！"})
 
