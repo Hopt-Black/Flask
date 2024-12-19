@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タロット結果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20vh;
+        }
+        #output {
+            font-size: 24px;
+            color: #FF69B4;
+        }
+    </style>
 </head>
 <body>
-    <h1>タロット占いの結果</h1>
-    <p>{{ text }}</p>
+    <div id="output"></div>
+    <script>
+        const text = "{{ text }}"; // Pythonから渡された文章
+        const output = document.getElementById('output');
+        let index = 0;
+
+        function typeText() {
+            if (index < text.length) {
+                output.innerHTML += text[index];
+                index++;
+                setTimeout(typeText, 100); // 100msごとに次の文字を表示
+            }
+        }
+
+        typeText();
+    </script>
 </body>
 </html>
+

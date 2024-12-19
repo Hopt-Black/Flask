@@ -72,13 +72,6 @@ generated_numbers = None
 def index():
     return render_template('index.html')
 
-@app.route('/result', methods = ['POST'])
-def return_result():
-    #フォームからPOSTデータを受け取る
-    user_str = request.form.get('question')
-    response = model.generate_content(user_str)
-    return render_template('result.html', result = response.text)
-
 @app.route('/tarot', methods = ['POST'])
 def tarot_select():
     #フォームから相談内容を受け取る
@@ -116,17 +109,14 @@ def get_tarots():
         future_card = selected_cards[2]["card"]  # 最終結果
 
         # プロンプトを作成
-        prompt = f"転職をすべきかどうかを、現状：'{current_card}'、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答してください。"
+        prompt = f"転職をすべきかどうかを、現状：'{current_card}'、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答してください。付随して、改行はhtml形式で出力してください"
 
         # AIによる占い結果の生成
         response = model.generate_content(prompt)
 
         print(response.text)
 
-        return render_template('stream.html', text=response.text)
-
-        # カードの情報をJSON形式で返却
-        #return jsonify({"cards": selected_cards})
+        return render_template('result.html', text = response.text)
     else:
         return jsonify({"message": "まだ乱数が生成されていません！"})
 

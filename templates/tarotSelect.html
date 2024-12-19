@@ -14,29 +14,13 @@
                 });
         }
 
-        // 生成されたタロット乱数を表示するボタン
-        function getTarots() {
-            fetch('/getTarots', { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                if (data.cards !== undefined) {
-                    let cardDetails = data.cards.map(card => {
-                        return `${card.card} (${card.position})`;
-                    }).join("\n");
-
-                    alert("選ばれたタロットカード:\n" + cardDetails);
-                } else {
-                    alert(data.message);
-                }
-            });
-        }
     </script>
 </head>
 <body>
     <h1>タロットカード占い</h1>
     <p>以下のボタンをクリックして、ランダムにタロットカードを3枚選んでみましょう！</p>
     <button onclick="generateTarots()">山札をシャッフル</button>
-    <button onclick="getTarots()">３枚のカードを表示</button>
+    <a href="/getTarots"><button>結果を表示</button></a>
 
 </body>
 </html>

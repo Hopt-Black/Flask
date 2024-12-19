@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>受取った回答の表示</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タロット結果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20vh;
+        }
+        #output {
+            font-size: 24px;
+            color: #330c1f;
+        }
+    </style>
 </head>
 <body>
-    <h1>文字列は</h1>
-    <p>{{ result }}</p>
-    <a href="/">戻る</a>
+    <h1>タロット占いの結果</h1>
+    <div id="output">{{  text  }}</div>
+
+    <a href="/"><button>戻る</button></a>
 </body>
 </html>
