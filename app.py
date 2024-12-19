@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, jsonify
 import google.generativeai as genai
 import random
-
+import define
 # タロットカード一覧とその意味
 tarot_cards = [
     "愚者: 新しい始まり、自由、未知への挑戦",
@@ -57,10 +57,10 @@ tarot_cards_reversed = [
 app = Flask(__name__)
 
 #セッション用のシークレットキーを設定
-app.secret_key = 'xxxxxxxxxxxxxxxx'
+app.secret_key = define.APP_SECRET_KEY
 
 #google generative AI (gemini API)のAPIキー設定
-genai.configure(api_key='YOUR_API_KEY')
+genai.configure(api_key=define.YOUR_API_KEY)
 #geminiモデルの設定
 model = genai.GenerativeModel("gemini-1.5-flash")
 
