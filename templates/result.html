@@ -11,14 +11,14 @@
             margin-top: 20vh;
         }
         #output {
-            font-size: 24px;
+            font-size: 16px;
             color: #330c1f;
         }
     </style>
 </head>
 <body>
     <h1>タロット占いの結果</h1>
-    <div id="output">{{  text  }}</div>
+    <div id="output">{{  text|safe  }}</div>
 
     <a href="/"><button>戻る</button></a>
 </body>

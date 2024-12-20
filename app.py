@@ -109,7 +109,7 @@ def get_tarots():
         future_card = selected_cards[2]["card"]  # 最終結果
 
         # プロンプトを作成
-        prompt = f"転職をすべきかどうかを、現状：'{current_card}'、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答してください。付随して、改行はhtml形式で出力してください"
+        prompt = f"転職をすべきかどうかを、現状：'{current_card}'、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答し、最後にまとめてください。また、各解釈の区切りには<br>を２回、まとめの前には<br>を3回入力してください"
 
         # AIによる占い結果の生成
         response = model.generate_content(prompt)
