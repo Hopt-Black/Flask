@@ -4,23 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タロットカードのシャッフル</title>
-    <script>
-        // タロット乱数を生成するボタン
-        function generateTarots() {
-            fetch('/generateTarots', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message); // 成功したらメッセージを表示
-                });
-        }
-
-    </script>
 </head>
 <body>
     <h1>タロットカード占い</h1>
     <p>以下のボタンをクリックして、ランダムにタロットカードを3枚選んでみましょう！</p>
-    <button onclick="generateTarots()">山札をシャッフル</button>
+    <a href="/generateTarots"><button>山札をシャッフル</button></a>
     <a href="/getTarots"><button>結果を表示</button></a>
 
 </body>
 </html>
+
+<script>
+</script>

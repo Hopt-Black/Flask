@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session, jsonify, send_from_directory
 import google.generativeai as genai
 import random
 import define
@@ -64,9 +64,6 @@ genai.configure(api_key=define.YOUR_API_KEY)
 #geminiモデルの設定
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-#乱数を保存する変数
-generated_numbers = None
-
 # ルーティング
 @app.route('/')
 def index():
@@ -82,17 +79,15 @@ def tarot_select():
 
     return render_template('tarotSelect.html')
 
-@app.route('/generateTarots', methods=['POST'])
+@app.route('/generateTarots')
 def generate_tarots():
-    global generated_numbers
-    # 0～21の中から重複しない3つの数字をランダムに選ぶ
     generated_numbers = random.sample(range(22), 3)
-    return jsonify({"message": "乱数を生成しました！"})
-
+    session['generated_numbers'] = generated_numbers
+    return render_template('tarotSelect.html')
 
 @app.route('/getTarots', methods=['GET'])
 def get_tarots():
-    global generated_numbers
+    generated_numbers = session['generated_numbers']
     if generated_numbers is not None:
         selected_cards = []
         # 生成された乱数を使ってカードとその意味を取得
@@ -115,10 +110,10 @@ def get_tarots():
 
         # プロンプトを作成
         prompt = f"転職をすべきかどうかを、現状：{current_card}、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答し、最後にまとめてください（カードの正位置逆位置を明示）。また、各解釈の区切りには<br>を２回、まとめの前には<br>を3回入力してください"
-        determine_personality = "老婆のような口調で答えてください"
-        prompt_current = f"転職すべきかどうかを、現状を{current_card}の解釈で回答してください。段落ごとに改行を<br>で、300文字程度で"
-        prompt_advice = f"先ほどの回答を踏まえて、アドバイスや取るべき行動を{advice_card}の解釈で回答してください。段落ごとに改行を<br>で、300文字程度で"
-        prompt_future = f"先ほどまでの回答を踏まえて、最終的な結果や未来の展望を{future_card}の解釈で回答してください。段落ごとに改行を<br>で、300文字程度で"
+        determine_personality = f"あなたは優しい占い師です"
+        prompt_current = f"転職すべきかどうかを、現状を{current_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
+        prompt_advice = f"先ほどの回答を踏まえて、アドバイスや取るべき行動を{advice_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
+        prompt_future = f"先ほどまでの回答を踏まえて、最終的な結果や未来の展望を{future_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
 
         # AIによる占い結果の生成（履歴保存式）
         #response = model.generate_content(prompt)
@@ -136,8 +131,8 @@ def get_tarots():
 
         return render_template('result.html', text_current = response_current.text, text_advice = response_advice.text, text_future = response_future.text, selected_cards = selected_cards)
     else:
-        return jsonify({"message": "まだ乱数が生成されていません！"})
-
+        print('乱数が生成されていません')
+        return None
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
