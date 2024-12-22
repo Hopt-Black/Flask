@@ -104,12 +104,12 @@ def get_tarots():
         future_card = selected_cards[2]["card"]  # 最終結果
 
         #格納されているデータ確認
-        t = type(selected_cards[0]["card"])
+        #t = type(selected_cards[0]["card"])
         #print(t)
 
 
         # プロンプトを作成
-        prompt = f"転職をすべきかどうかを、現状：{current_card}、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答し、最後にまとめてください（カードの正位置逆位置を明示）。また、各解釈の区切りには<br>を２回、まとめの前には<br>を3回入力してください"
+        #prompt = f"転職をすべきかどうかを、現状：{current_card}、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答し、最後にまとめてください（カードの正位置逆位置を明示）。また、各解釈の区切りには<br>を２回、まとめの前には<br>を3回入力してください"
         determine_personality = f"あなたは優しい占い師です"
         prompt_current = f"転職すべきかどうかを、現状を{current_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
         prompt_advice = f"先ほどの回答を踏まえて、アドバイスや取るべき行動を{advice_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
@@ -125,9 +125,7 @@ def get_tarots():
         response_advice = chat.send_message(prompt_advice)
         response_future = chat.send_message(prompt_future)
 
-        print(response_current.text)
-        print(response_advice.text)
-        print(response_future.text)
+        print(response_first)
 
         return render_template('result.html', text_current = response_current.text, text_advice = response_advice.text, text_future = response_future.text, selected_cards = selected_cards)
     else:
