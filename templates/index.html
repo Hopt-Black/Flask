@@ -3,13 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>タロット占い</title>
+
+    <!-- リセットCSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+
+    <!-- googleフォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
+
+    <!-- ここにstylesheetを追加 -->
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1>適当な文字列を入力してPOSTリクエスト</h1>
-    <form action="/tarot" method="post">
-        <label for="consultation">文字列を入力：</label><br>
-        <textarea id="consultation" name="consultation" rows="5" cols="30"></textarea><br>
-        <input type="submit" value="相談する">
+    <h1 class="align-center">適当な文字列を入力してPOSTリクエスト</h1>
+    <form action="/tarot" method="post" class="align-center">
+    <h2>相談内容を選択</h2><br>
+        <div class="grid">
+            <input type="radio" name="consultation" value="1" id="job" checked><label for="job" class="radio_btn">転職すべきかどうか</label>
+            <input type="radio" name="consultation" value="2" id="jobtraining"><label for="jobtraining" class="radio_btn">職業訓練を受けるべきかどうか</label>
+            <input type="radio" name="consultation" value="3" id="todayfortune"><label for="todayfortune" class="radio_btn">今日の運勢</label><br>
+            <input type="submit" value="相談する">
+        </div>
     </form>
+
+    <img class="align-center" src="{{  url_for('static', filename='/images/00_the_fool.png')}}" alt="">
 </body>
 </html>

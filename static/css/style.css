@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+/* 共通部分
+-------------------------------- */
+html {
+    font-size: 100%;
+}
+body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", sans-serif;
+    line-height: 1.7;
+    color: #432;
+}
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+}
+
+/* レイアウト */
+.wrapper {
+    max-width: 1120px;
+    margin: auto;
+    padding: 0 1.5rem;
+}
+.align-center {
+    text-align: center;
+}
+
+/* 見出し */
+.font-english {
+    font-family: 'Philosopher', sans-serif;
+    font-weight: normal;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    font-size: 1.5rem;
+    background-color: #0bd;
+    color: #fff;
+    border-radius: 8px;
+    padding: .75rem 1.5rem;
+    transition:  .5s;
+}
+.btn:hover {
+    background-color: darkcyan;
+    /* 拡大 */
+    /* scale: 1.2; */
+    /* 回転 */
+    /* rotate: -5deg; */
+    /* 移動 */
+    translate: 1px 1px;
+}
+
+/* グリッドレイアウト */
+.radio_btn {
+    display: block 
+}

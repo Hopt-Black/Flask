@@ -54,7 +54,7 @@ tarot_cards_reversed = [
     "世界: 不完全な達成、進展の停止、結びつきの欠如"
 ]
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="./static/")
 
 #セッション用のシークレットキーを設定
 app.secret_key = define.APP_SECRET_KEY
@@ -87,6 +87,7 @@ def generate_tarots():
 
 @app.route('/getTarots', methods=['GET'])
 def get_tarots():
+    consultation_number = session['user_consultation']
     generated_numbers = session['generated_numbers']
     if generated_numbers is not None:
         selected_cards = []
@@ -111,7 +112,14 @@ def get_tarots():
         # プロンプトを作成
         #prompt = f"転職をすべきかどうかを、現状：{current_card}、アドバイスや取るべき行動：'{advice_card}'、最終的な結果や未来の展望：'{future_card}' の解釈で回答し、最後にまとめてください（カードの正位置逆位置を明示）。また、各解釈の区切りには<br>を２回、まとめの前には<br>を3回入力してください"
         determine_personality = f"あなたは優しい占い師です"
-        prompt_current = f"転職すべきかどうかを、現状を{current_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
+
+        if consultation_number == '1':
+            prompt_current = f"転職すべきかどうかを、現状を{current_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
+        elif consultation_number == '2':
+            prompt_current = f"職業訓練を受けるべきかどうかを、現状を{current_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
+        else:
+            prompt_current = f"今日の運勢を、現状を{current_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
+
         prompt_advice = f"先ほどの回答を踏まえて、アドバイスや取るべき行動を{advice_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
         prompt_future = f"先ほどまでの回答を踏まえて、最終的な結果や未来の展望を{future_card}の解釈で回答してください。段落ごとに改行を<br>で、200文字程度で"
 
