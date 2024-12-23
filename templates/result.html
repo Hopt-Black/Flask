@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タロット結果</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 20vh;
-        }
-        #output {
-            font-size: 16px;
-            color: #330c1f;
-        }
-    </style>
+    <!-- リセットCSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+
+    <!-- googleフォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
+
+    <!-- ここにstylesheetを追加 -->
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <h1>タロット占いの結果</h1>
@@ -27,6 +26,7 @@
     <h2>未来への展望：{{  selected_cards[2].card  }}({{  selected_cards[2].position  }})</h2>
     <div>{{  text_future|safe  }}</div>
     <br>
+    <img class="align-center" src="{{  url_for('static', filename='/images/00_the_fool.png')}}" alt=""><br>
     <a href="/"><button>戻る</button></a>
 </body>
 </html>
