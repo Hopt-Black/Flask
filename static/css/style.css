@@ -8,8 +8,8 @@ html {
 body {
     font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", sans-serif;
     line-height: 1.7;
-    color: #432;
-    background-color: #486d46;            /* 背景色 */
+    color: rgb(201, 170, 70);
+    background-color: #0a082e;            /* 背景色 */
     background-image: url("/static/images/back_ground.png"); /* 画像 */
     background-size: cover;               /* 全画面 */
     background-attachment: fixed;         /* 固定 */
@@ -45,14 +45,14 @@ img {
 .btn {
     display: inline-block;
     font-size: 1.5rem;
-    background-color: #0bd;
-    color: #fff;
+    background-color: #0a082e;
+    color: rgb(201, 170, 70);;
     border-radius: 8px;
     padding: .75rem 1.5rem;
     transition:  .5s;
 }
 .btn:hover {
-    background-color: darkcyan;
+    background-color: rgb(30, 11, 138);
     /* 拡大 */
     /* scale: 1.2; */
     /* 回転 */
@@ -62,6 +62,61 @@ img {
 }
 
 /* グリッドレイアウト */
-.radio_btn {
-    display: block 
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+/*カードシャッフル*/
+.of {
+    overflow: hidden;
+}
+
+.card-container {
+    position: relative;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+.card {
+    position: absolute;
+    width: 250px; /* カードの幅 */
+    height: 400px; /* カードの高さ */
+    animation: scatterAndReturn 4s ease-in-out;
+    opacity: 1;
+  }
+
+  @keyframes scatterAndReturn {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg); /* 中央から開始 */
+      opacity: 1;
+    }
+    30% {
+      transform: translate(
+          calc(100vw * var(--x)),
+          calc(100vh * var(--y))
+        )
+        scale(1) rotate(calc(360deg * var(--r)));
+      opacity: 1;
+    }
+    60% {
+      transform: translate(
+          calc(100vw * var(--x)),
+          calc(100vh * var(--y))
+        )
+        scale(1) rotate(calc(360deg * var(--r)));
+      opacity: 1;
+    }
+    100% {
+      transform: translate(0, 0) scale(1) rotate(360deg); /* 中央に戻る */
+      opacity: 1;
+    }
+  }
+
+  /* 最後に固定表示するカードのスタイル */
+.card.final {
+    animation: none;
+    transform: translate(0, 0) scale(1);
+    z-index: 10; /* 最前面に表示 */
 }

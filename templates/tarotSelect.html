@@ -14,15 +14,42 @@
 
     <!-- ここにstylesheetを追加 -->
     <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <h1>タロットカード占い</h1>
-    <p>以下のボタンをクリックして、ランダムにタロットカードを3枚選んでみましょう！</p>
-    <a href="/generateTarots"><button>山札をシャッフル</button></a>
-    <a href="/getTarots"><button>結果を表示</button></a>
-
+    
+    
+<body class="of">
+    <h1 class="align-center">タロットのシャッフルと決定</h1>
+    <div class="align-center">
+        <p>以下のボタンをクリックしてタロットカードをシャッフルしよう！</p>
+        <a href="/generateTarots"><button class="btn">山札をシャッフル</button></a>
+    </div>
+    <div class="card-container">
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+        <img src="/static/images/card_back.png" class="card" />
+    </div>
+    <div class="align-center">
+        <a href="/getTarots"><button class="btn">上から3枚のカードを選ぶ</button></a>
+    </div>
+    <!--javascript読み込み-->
+    <script src="/static/cardsShuffle.js"></script>
 </body>
 </html>
-
-<script>
-</script>

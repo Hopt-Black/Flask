@@ -73,9 +73,13 @@ def index():
 def tarot_select():
     #フォームから相談内容を受け取る
     user_consultation = request.form.get('consultation')
-
     #セッションスコープに保存
     session['user_consultation'] = user_consultation
+
+    #次のタロットカードのシャッフルの前に1回シャッフルを済ませておく
+    generated_numbers = random.sample(range(22), 3)
+    #セッションスコープに保存
+    session['generated_numbers'] = generated_numbers
 
     return render_template('tarotSelect.html')
 

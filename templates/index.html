@@ -16,15 +16,15 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1 class="align-center">適当な文字列を入力してPOSTリクエスト</h1>
+    <h1 class="align-center">タロット占いの館</h1>
     <form action="/tarot" method="post" class="align-center">
     <h2>相談内容を選択</h2><br>
         <div class="grid">
             <input type="radio" name="consultation" value="1" id="job" checked><label for="job" class="radio_btn">転職すべきかどうか</label>
             <input type="radio" name="consultation" value="2" id="jobtraining"><label for="jobtraining" class="radio_btn">職業訓練を受けるべきかどうか</label>
             <input type="radio" name="consultation" value="3" id="todayfortune"><label for="todayfortune" class="radio_btn">今日の運勢</label><br>
-            <input type="submit" value="相談する">
         </div>
+        <input type="submit" value="相談する" class="btn">
     </form>
 </body>
 </html>

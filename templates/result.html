@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+    <div class="align-center">
     <h1>タロット占いの結果</h1>
     <h2>現状：{{  selected_cards[0].card  }}({{  selected_cards[0].position  }})</h2>
     <div>{{  text_current|safe  }}</div>
@@ -27,6 +28,7 @@
     <div>{{  text_future|safe  }}</div>
     <br>
     <img class="align-center" src="{{  url_for('static', filename='/images/00_the_fool.png')}}" alt=""><br>
-    <a href="/"><button>戻る</button></a>
+    <a href="/"><button class="btn">もう一度占う</button></a>
+    </div>
 </body>
 </html>
