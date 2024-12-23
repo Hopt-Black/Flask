@@ -133,8 +133,6 @@ def get_tarots():
         response_advice = chat.send_message(prompt_advice)
         response_future = chat.send_message(prompt_future)
 
-        print(response_first)
-
         return render_template('result.html', text_current = response_current.text, text_advice = response_advice.text, text_future = response_future.text, selected_cards = selected_cards)
     else:
         print('乱数が生成されていません')
