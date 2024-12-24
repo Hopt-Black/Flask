@@ -22,6 +22,11 @@ img {
     max-width: 100%;
 }
 
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
 /* 単一の画像 */
 
 
@@ -39,12 +44,6 @@ img {
 }
 .align-right {
   text-align: right;
-}
-
-/* 見出し */
-.font-english {
-    font-family: 'Philosopher', sans-serif;
-    font-weight: normal;
 }
 
 /* ボタン */
@@ -84,6 +83,8 @@ img {
   margin-right: 5px;
   cursor: pointer;
 }
+
+
 
 /*カードシャッフル*/
 .of {
@@ -137,4 +138,28 @@ img {
     animation: none;
     transform: translate(0, 0) scale(1);
     z-index: 10; /* 最前面に表示 */
+}
+
+.reverse {
+  transform: scaleY(-1);
+}
+
+/* 結果画面 */
+.result-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+.text-content {
+  flex: 1; /* テキスト部分は可変幅 */
+}
+.image-content {
+  flex: 0 0 200px; /* 画像部分は固定幅 */
+  text-align: center;
+}
+.image-content img {
+  max-width: 100%; /* 画像のサイズを親要素にフィット */
+  height: auto;
 }

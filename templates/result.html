@@ -15,21 +15,51 @@
     <!-- ここにstylesheetを追加 -->
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-    <div class="align-center">
+<body class="wrapper">
     <h1>タロット占いの結果</h1>
-    
-    <h2>現状：{{  selected_cards[0].card  }}({{  selected_cards[0].position  }})</h2>
-    <div>{{  text_current|safe  }}</div>
-    <br>
-    <h2>アドバイス：{{  selected_cards[1].card  }}({{  selected_cards[1].position  }})</h2>
-    <div>{{  text_advice|safe  }}</div>
-    <br>
-    <h2>未来への展望：{{  selected_cards[2].card  }}({{  selected_cards[2].position  }})</h2>
-    <div>{{  text_future|safe  }}</div>
-    <br>
-    <img class="align-center" src="{{  url_for('static', filename='/images/00_the_fool.png')}}" alt=""><br>
-    <a href="/"><button class="btn">もう一度占う</button></a>
+
+    <div class="result-section">
+        <div class="text-content">
+            <h2>現状：{{ selected_cards[0].name }} ({{ selected_cards[0].position }})</h2>
+            <div>{{ text_current|safe }}</div>
+        </div>
+        <div class="image-content">
+            {% if selected_cards[0].position == "正位置" %}
+                <img src="{{ url_for('static', filename=selected_cards[0].image_path) }}" alt="">
+            {% else %}
+                <img class="reverse" src="{{ url_for('static', filename=selected_cards[0].image_path) }}" alt="">
+            {% endif %}
+        </div>
     </div>
+
+    <div class="result-section">
+        <div class="text-content">
+            <h2>アドバイス：{{ selected_cards[1].name }} ({{ selected_cards[1].position }})</h2>
+            <div>{{ text_advice|safe }}</div>
+        </div>
+        <div class="image-content">
+            {% if selected_cards[1].position == "正位置" %}
+                <img src="{{ url_for('static', filename=selected_cards[1].image_path) }}" alt="">
+            {% else %}
+                <img class="reverse" src="{{ url_for('static', filename=selected_cards[1].image_path) }}" alt="">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="result-section">
+        <div class="text-content">
+            <h2>未来への展望：{{ selected_cards[2].name }} ({{ selected_cards[2].position }})</h2>
+            <div>{{ text_future|safe }}</div>
+        </div>
+        <div class="image-content">
+            {% if selected_cards[2].position == "正位置" %}
+                <img src="{{ url_for('static', filename=selected_cards[2].image_path) }}" alt="">
+            {% else %}
+                <img class="reverse" src="{{ url_for('static', filename=selected_cards[2].image_path) }}" alt="">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="align-center"><a href="/"><button class="btn">もう一度占う</button></a></div>
 </body>
 </html>
