@@ -8,7 +8,7 @@ html {
 body {
     font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", sans-serif;
     line-height: 1.7;
-    color: rgb(201, 170, 70);
+    color: rgb(255, 255, 255);
     background-color: #0a082e;            /* 背景色 */
     background-image: url("/static/images/back_ground.png"); /* 画像 */
     background-size: cover;               /* 全画面 */
@@ -34,6 +34,12 @@ img {
 .align-center {
     text-align: center;
 }
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
 
 /* 見出し */
 .font-english {
@@ -46,7 +52,7 @@ img {
     display: inline-block;
     font-size: 1.5rem;
     background-color: #0a082e;
-    color: rgb(201, 170, 70);;
+    color: rgb(255, 255, 255);;
     border-radius: 8px;
     padding: .75rem 1.5rem;
     transition:  .5s;
@@ -62,9 +68,21 @@ img {
 }
 
 /* グリッドレイアウト */
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+.grid_index {
+  display: flex;
+  /* width: 750px; */
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+.grid_index >label{
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+}
+.grid_index > label > input {
+  margin-right: 5px;
+  cursor: pointer;
 }
 
 /*カードシャッフル*/
